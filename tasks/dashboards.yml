@@ -1,5 +1,5 @@
 ---
-- name: Create folder for dashboards
+- name: Создаем директорию для Главной страницы
   become: true
   file:
     dest: /etc/grafana/dashboards
@@ -9,7 +9,7 @@
     group: grafana
   when: grafana_dashboards is defined
 
-- name: Load dashboards
+- name: Загрузка главной страницы
   become: true
   copy:
     content: "{{ lookup('file', item.file) }}"
@@ -20,8 +20,7 @@
   loop: "{{ grafana_dashboards }}"
   notify: restart grafana
 
-
-- name: Configure dashboards
+- name: Конфигурация Главной страницы
   become: true
   template:
     src: dashboard.yaml.j2
